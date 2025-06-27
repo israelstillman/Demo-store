@@ -1,0 +1,20 @@
+<!-- subscribe.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Subscription Successful</title>
+  <script>
+    const email = new URLSearchParams(window.location.search).get('email') || 'test@example.com';
+    dataLayer = window.dataLayer || [];
+    dataLayer.push({
+      event: 'lead',
+      email: email
+    });
+  </script>
+</head>
+<body>
+  <h1>Thanks for Subscribing!</h1>
+  <p>You’ll start receiving updates soon.</p>
+</body>
+</html>
