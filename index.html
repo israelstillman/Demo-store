@@ -3,8 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Advanced Demo Store</title>
+  <title>Advanced Demo Store (Single Page)</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function trackViewProduct(product, price) {
+      dataLayer.push({ event: 'view_content', product_name: product, value: price, currency: 'USD' });
+    }
+    function trackAddToCart(product, price) {
+      dataLayer.push({ event: 'add_to_cart', product_name: product, value: price, currency: 'USD' });
+    }
+    function trackCheckout(product, price) {
+      dataLayer.push({ event: 'initiate_checkout', product_name: product, value: price, currency: 'USD' });
+    }
+    function trackLead(email) {
+      dataLayer.push({ event: 'lead', email: email });
+    }
+  </script>
   <!-- Google Tag Manager -->
   <script>
     (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -32,67 +48,80 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=740051475148844&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
-  
+
 </head>
 <body>
-  <!-- Google Tag Manager (noscript) -->
+
+   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TCGPFS5N"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
-
   <div class="container py-5">
-    <h1 class="text-center mb-5">Advanced Demo Store</h1>
+    <h1 class="text-center mb-4">Advanced Demo Store (All-in-One)</h1>
 
-    <!-- Newsletter Signup -->
-    <div class="mb-5">
-      <h4>Subscribe to our newsletter</h4>
-      <form action="subscribe.html" method="GET">
-        <input type="email" id="email" class="form-control w-50 d-inline-block" placeholder="Enter your email" required>
-        <button class="btn btn-success">Subscribe</button>
-      </form>
+    <!-- Navigation -->
+    <div class="mb-4">
+      <button class="btn btn-secondary me-2" onclick="showPage('home')">Home</button>
+      <button class="btn btn-secondary me-2" onclick="showPage('product1')">Product 1</button>
+      <button class="btn btn-secondary me-2" onclick="showPage('product2')">Product 2</button>
+      <button class="btn btn-secondary me-2" onclick="showPage('product3')">Product 3</button>
+      <button class="btn btn-secondary me-2" onclick="showPage('cart')">Cart</button>
+      <button class="btn btn-secondary me-2" onclick="showPage('checkout')">Checkout</button>
+      <button class="btn btn-secondary" onclick="showPage('subscribe')">Subscribe</button>
     </div>
 
-    <!-- Product Listings -->
-    <div class="row">
-      <div class="col-md-4">
-        <div class="card">
-          <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Product">
-          <div class="card-body">
-            <h5 class="card-title">Product 1</h5>
-            <p class="card-text">$19.99</p>
-            <a href="product1.html" class="btn btn-info">View</a>
-            <a href="cart.html?product=Product1" class="btn btn-primary">Add to Cart</a>
-            <a href="checkout.html?product=Product1" class="btn btn-warning">Buy Now</a>
-          </div>
-        </div>
-      </div>
+    <!-- Pages -->
+    <div id="home" class="page">
+      <h3>Welcome to Our Store</h3>
+      <p>This is your homepage. Use the buttons above to navigate between simulated pages.</p>
+    </div>
 
-      <div class="col-md-4">
-        <div class="card">
-          <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Product">
-          <div class="card-body">
-            <h5 class="card-title">Product 2</h5>
-            <p class="card-text">$29.99</p>
-            <a href="product2.html" class="btn btn-info">View</a>
-            <a href="cart.html?product=Product2" class="btn btn-primary">Add to Cart</a>
-            <a href="checkout.html?product=Product2" class="btn btn-warning">Buy Now</a>
-          </div>
-        </div>
-      </div>
+    <div id="product1" class="page d-none">
+      <h3>Product 1</h3>
+      <p>Price: $19.99</p>
+      <button class="btn btn-info" onclick="trackViewProduct('Product 1', 19.99)">Trigger ViewContent</button>
+      <button class="btn btn-primary" onclick="trackAddToCart('Product 1', 19.99)">Add to Cart</button>
+      <button class="btn btn-warning" onclick="trackCheckout('Product 1', 19.99)">Checkout</button>
+    </div>
 
-      <div class="col-md-4">
-        <div class="card">
-          <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Product">
-          <div class="card-body">
-            <h5 class="card-title">Product 3</h5>
-            <p class="card-text">$39.99</p>
-            <a href="product3.html" class="btn btn-info">View</a>
-            <a href="cart.html?product=Product3" class="btn btn-primary">Add to Cart</a>
-            <a href="checkout.html?product=Product3" class="btn btn-warning">Buy Now</a>
-          </div>
-        </div>
-      </div>
+    <div id="product2" class="page d-none">
+      <h3>Product 2</h3>
+      <p>Price: $29.99</p>
+      <button class="btn btn-info" onclick="trackViewProduct('Product 2', 29.99)">Trigger ViewContent</button>
+      <button class="btn btn-primary" onclick="trackAddToCart('Product 2', 29.99)">Add to Cart</button>
+      <button class="btn btn-warning" onclick="trackCheckout('Product 2', 29.99)">Checkout</button>
+    </div>
+
+    <div id="product3" class="page d-none">
+      <h3>Product 3</h3>
+      <p>Price: $39.99</p>
+      <button class="btn btn-info" onclick="trackViewProduct('Product 3', 39.99)">Trigger ViewContent</button>
+      <button class="btn btn-primary" onclick="trackAddToCart('Product 3', 39.99)">Add to Cart</button>
+      <button class="btn btn-warning" onclick="trackCheckout('Product 3', 39.99)">Checkout</button>
+    </div>
+
+    <div id="cart" class="page d-none">
+      <h3>Your Cart</h3>
+      <p>This simulates the cart page. Use buttons from product pages to trigger AddToCart.</p>
+    </div>
+
+    <div id="checkout" class="page d-none">
+      <h3>Checkout</h3>
+      <p>This simulates the checkout page. Use buttons from product pages to trigger InitiateCheckout.</p>
+    </div>
+
+    <div id="subscribe" class="page d-none">
+      <h3>Subscribe to Our Newsletter</h3>
+      <input type="email" id="email" placeholder="Enter email" class="form-control w-50 d-inline-block">
+      <button class="btn btn-success" onclick="trackLead(document.getElementById('email').value)">Trigger Lead</button>
     </div>
   </div>
+
+  <script>
+    function showPage(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.add('d-none'));
+      document.getElementById(id).classList.remove('d-none');
+    }
+  </script>
 </body>
 </html>
